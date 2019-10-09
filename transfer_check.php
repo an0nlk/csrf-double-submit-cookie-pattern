@@ -3,8 +3,8 @@ session_start();
 	//Define variables and initialize with empty values
     $csrf = $sid =  "";
 	
-	//check if the post data is set correctly
-    if(isset($_POST["amount"]) && isset($_POST['csrf'])){
+	//check if the post data is set correctly and not empty
+	if(isset($_POST["amount"]) && (isset($_POST['csrf']) && !empty($_POST['csrf'])) && (isset($_COOKIE["sid"]) && !empty($_COOKIE["sid"]))){
 		//check if the csrf cookie is set
         if(isset($_COOKIE["csrf"])){
             $csrf = $_COOKIE["csrf"];
