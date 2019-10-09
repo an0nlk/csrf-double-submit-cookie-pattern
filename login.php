@@ -12,7 +12,7 @@ if(isset($_COOKIE["sid"]) && isset($_COOKIE["user"]) && isset($_SESSION["loggedi
 
 require("csrf_token.php");
 //call function to generate token and assign the returned token to a variable
-$token = csrf_token_gen();//this will be added to the form hidden field
+$token = login_csrf_token_gen();//this will be added to the form hidden field
 
 ?>
 <!DOCTYPE html>

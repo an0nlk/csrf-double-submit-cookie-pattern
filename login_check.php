@@ -9,15 +9,15 @@ $username_err = $password_err = "";
 $csrf = $sid =  "";
 
 session_start();
-//check if the csrf token cookie is set
-if(isset($_COOKIE['csrf'])){
+//check if the csrf token session is set
+if(isset($_SESSION['csrf'])){
     //assign the token to a variable
-    $csrf = $_COOKIE['csrf'];
+    $csrf = $_SESSION['csrf'];
 }
 
 //check if the post data is set correctly
 if(isset($_POST["username"]) && (isset($_POST['csrf']) && !empty($_POST['csrf'])) && isset($_POST['csrf'])){
-    //compare cookie csrf token with post csrf token
+    //compare session csrf token with post csrf token
     if($csrf != $_POST["csrf"]){
         $password_err = "Invalid CSRF token. <br/> Please refresh the page and try again";
     }
@@ -60,8 +60,8 @@ if(isset($_POST["username"]) && (isset($_POST['csrf']) && !empty($_POST['csrf'])
     header("Content-Type: application/json", true);
     echo json_encode(array("user_error" => $username_err, "pass_error" => $password_err));
 	
-	//unset the cookie that saved csrf token
-	setcookie("csrf", '', time()-1000, '/');
+	//unset the session that saved csrf token
+	unset($_SESSION["csrf"]);
 	exit;
 }
 else{

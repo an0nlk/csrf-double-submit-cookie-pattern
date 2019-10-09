@@ -27,4 +27,16 @@ function csrf_token_gen(){
 	//return the csrf token
     return $token;
 }
+
+//function to generate csrf token for login form
+function login_csrf_token_gen(){
+    //generate csrf token
+    $token = substr(base_convert(sha1(uniqid(mt_rand())), 16, 36), 0, 32);
+
+    //save the csrf token in a session
+    $_SESSION['csrf'] = $token;
+
+    //return the csrf token
+    return $token;
+}
 ?>
